@@ -1,0 +1,387 @@
+#VRML_OBJ R2020b utf8
+DEF robot_0 Robot {
+  translation 0.031988251497902194 0.13506629553963095 0.37095568621437125
+  rotation 0.09543029814679972 0.8067677405490427 0.5831113710132958 -2.8834537489370238
+  children [
+    DEF BODY Group {
+      children [
+        Transform {
+          translation 0 0 -0.06
+          rotation 0 0 1 1.57
+          children [
+            Shape {
+              appearance DEF body PBRAppearance {
+                baseColor 0 1 0
+                roughness 0.2
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.08
+                radius 0.04
+              }
+            }
+          ]
+        }
+        Shape {
+          appearance USE body
+          geometry Box {
+            size 0.08 0.08 0.12
+          }
+        }
+        Transform {
+          translation 0 0 0.06
+          rotation 0 0 1 1.5708
+          children [
+            Shape {
+              appearance USE body
+              geometry Cylinder {
+                height 0.08
+                radius 0.04
+              }
+            }
+          ]
+        }
+      ]
+    }
+    DEF left HingeJoint {
+      jointParameters HingeJointParameters {
+        position 9.393936776334542
+        anchor -0.05 0 0
+      }
+      device [
+        RotationalMotor {
+          name "left_motor"
+          maxVelocity 20
+          maxTorque 20
+        }
+      ]
+      endPoint Solid {
+        translation 0.04999999999999999 0 0
+        rotation -0.7070634429635194 0.7070660401573364 -0.010904241413229506 3.163400192019649
+        children [
+          Shape {
+            appearance DEF DYNAMIC PBRAppearance {
+              baseColor 0.753 0.753 0.753
+              roughness 0.2
+              metalness 0
+            }
+            geometry DEF WHEEL Cylinder {
+              height 0.02
+              radius 0.05
+            }
+          }
+        ]
+        name "left_wheel"
+        boundingObject USE WHEEL
+        physics Physics {
+          density -1
+          mass 0.08
+        }
+        linearVelocity 0.729850545477056 -0.008746355191521317 -0.45676660916440354
+        angularVelocity -5.202238165615479 -4.407413614325661 1.9791678443708556
+      }
+    }
+    DEF right HingeJoint {
+      jointParameters HingeJointParameters {
+        position 11.536687697088537
+        anchor -0.05 0 0
+      }
+      device [
+        RotationalMotor {
+          name "right_motor"
+          maxVelocity 20
+          maxTorque 20
+        }
+      ]
+      endPoint Solid {
+        translation -0.05 0 0
+        rotation -0.4417471117844071 0.4417487344151326 0.7808441232875888 1.8156944156515107
+        children [
+          Shape {
+            appearance DEF DYNAMIC PBRAppearance {
+              baseColor 0.753 0.753 0.753
+              roughness 0.2
+              metalness 0
+            }
+            geometry DEF WHEEL Cylinder {
+              height 0.02
+              radius 0.05
+            }
+          }
+        ]
+        name "right_wheel"
+        boundingObject USE WHEEL
+        physics Physics {
+          density -1
+          mass 0.08
+        }
+        linearVelocity 0.8866058399857608 -0.010225058290916331 -0.04731850223597104
+        angularVelocity -6.301551610438666 -4.437051154983079 2.404401086262909
+      }
+    }
+    DEF front HingeJoint {
+      jointParameters HingeJointParameters {
+        position 2.5386303905776056e-09
+        anchor 0 0 0.06
+      }
+      device [
+        RotationalMotor {
+          name "front_motor"
+          maxVelocity 20
+          maxTorque 20
+        }
+      ]
+      endPoint Solid {
+        translation 0 0 0.06
+        rotation 1 0 0 0
+        children [
+          DEF FRONTBAN Transform {
+            translation 0 0 0.024
+            children [
+              Shape {
+                appearance USE DYNAMIC
+                geometry DEF ban Box {
+                  size 0.1 0.02 0.062
+                }
+              }
+            ]
+          }
+        ]
+        name "front_ban"
+        boundingObject USE FRONTBAN
+        physics Physics {
+          density -1
+          mass 0.02
+        }
+        linearVelocity 0.9156989075000411 -0.010636870390541306 -0.2915184705463949
+        angularVelocity -0.0005690750701825842 -4.361365064481767 0.017906077374972684
+      }
+    }
+    DEF rear HingeJoint {
+      jointParameters HingeJointParameters {
+        position 1.0847572912874763
+        anchor 0 0 -0.06
+      }
+      device [
+        RotationalMotor {
+          name "rear_motor"
+          maxVelocity 20
+          maxTorque 20
+        }
+      ]
+      endPoint Solid {
+        translation 0 0 -0.06
+        rotation 1 0 0 1.0847572912874763
+        children [
+          DEF REARBAN Transform {
+            translation 0 0 -0.024
+            children [
+              DEF rearban Shape {
+                appearance USE DYNAMIC
+                geometry DEF ban Box {
+                  size 0.1 0.02 0.062
+                }
+              }
+            ]
+          }
+          Connector {
+            translation 0 0 -0.055
+            rotation 0 1 0 3.14
+            children [
+              Transform {
+                rotation 1 0 0 1.5708
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      metalness 0
+                    }
+                    geometry Cylinder {
+                      height 0.001
+                      radius 0.01
+                    }
+                  }
+                ]
+              }
+            ]
+            name "rear_connector"
+            isLocked TRUE
+            distanceTolerance 0.05
+            axisTolerance 0.5
+            rotationTolerance 0.5
+          }
+          DistanceSensor {
+            translation 0.05 0 -0.02
+            children [
+              DEF DS Shape {
+                appearance PBRAppearance {
+                  baseColor 0.333333 0.666667 1
+                  roughness 1
+                  metalness 0
+                }
+                geometry Box {
+                  size 0.01 0.01 0.01
+                }
+              }
+            ]
+            name "ds5"
+            lookupTable [
+              0 0 0
+              0.3 1000 0
+            ]
+          }
+          DistanceSensor {
+            translation -0.05 0 -0.02
+            rotation 0 0 1 3.14159
+            children [
+              DEF DS Shape {
+                appearance PBRAppearance {
+                  baseColor 0.333333 0.666667 1
+                  roughness 1
+                  metalness 0
+                }
+                geometry Box {
+                  size 0.01 0.01 0.01
+                }
+              }
+            ]
+            name "ds6"
+            lookupTable [
+              0 0 0
+              0.3 1000 0
+            ]
+          }
+        ]
+        name "rear_ban"
+        boundingObject USE REARBAN
+        physics Physics {
+          density -1
+          mass 0.02
+        }
+        linearVelocity 0.6354985262218636 -0.008305674030619038 -0.18881506938695833
+        angularVelocity -0.04155987885416711 -4.360684387348022 0.01938142187891785
+      }
+    }
+    DistanceSensor {
+      translation 0 0 0.115
+      rotation 0 1 0 -1.5708
+      children [
+        DEF DS Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 0.666667 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds0"
+      lookupTable [
+        0 0 0
+        0.3 1000 0
+      ]
+    }
+    DistanceSensor {
+      translation 0.03 0 0.115
+      rotation 0 1 0 -1.27
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 0.666667 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds1"
+      lookupTable [
+        0 0 0
+        0.3 1000 0
+      ]
+    }
+    DistanceSensor {
+      translation -0.03 0 0.115
+      rotation 0 1 0 -1.87
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 0.666667 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds2"
+      lookupTable [
+        0 0 0
+        0.3 1000 0
+      ]
+    }
+    DistanceSensor {
+      translation 0.05 0 0.08
+      children [
+        DEF DS Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 0.666667 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds3"
+      lookupTable [
+        0 0 0
+        0.3 1000 0
+      ]
+    }
+    DistanceSensor {
+      translation -0.05 0 0.08
+      rotation 0 1 0 3.14
+      children [
+        DEF DS Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 0.666667 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds4"
+      lookupTable [
+        0 0 0
+        0.3 1000 0
+      ]
+    }
+    Emitter {
+      channel 1
+    }
+    Receiver {
+      channel 2
+    }
+  ]
+  name "0"
+  boundingObject USE BODY
+  physics Physics {
+    density -1
+    mass 0.5
+  }
+  controller "robot"
+  battery [
+    99968.93843151646, 100000
+  ]
+  linearVelocity 0.8090113374016282 -0.009914201525729627 -0.2530854196622818
+  angularVelocity -0.000569074495280375 -4.361365065454374 0.017906077317491803
+}

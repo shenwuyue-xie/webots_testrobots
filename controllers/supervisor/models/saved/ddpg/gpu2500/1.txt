@@ -1,0 +1,57 @@
+找到最佳输入维度
+
+应该只要一个目标，训练出最快到达
+训练1400多代 ，1412到达
+1500代
+跑了加起来超过2500代，没有实现目标
+决定改变robot_step
+def get_observations(self):
+        self.ds_values = []
+        self.final_distance = [50 for i in range(Max_robotnum)]
+        self.message = [1000 for i in range(MAX_DSNUM)]
+        self.angles = []
+        observation = []
+        message = self.handle_receiver()
+        self.angles = [0 for i in range(Max_robotnum)]
+        
+
+        if len(message) != 0:
+            for i in range(len(message)):
+                self.message[i] = float(message[i])
+                self.ds_values.append(float(message[i]))
+            for j in range(MAX_DSNUM):
+                observation.append(utils.normalize_to_range(float(self.message[j]),DIST_SENSORS_MM['min'],DIST_SENSORS_MM['max'], 0, 1))
+
+            for k in range(0,self.robot_num):
+                robot_position = []
+                robot_position = self.robot_handles[k].getPosition()
+                robot_rotation = []
+                robot_rotation = self.robot_handles[k].getOrientation()
+
+                observation.append(utils.normalize_to_range(float(robot_position[0]),XPOSITION['min'],XPOSITION['max'],0,1))
+                observation.append(utils.normalize_to_range(float(robot_position[1]),YPOSITION['min'],YPOSITION['max'],0,1))
+                observation.append(utils.normalize_to_range(float(robot_position[2]),ZPOSITION['min'],ZPOSITION['max'],0,1))
+                observation.append(utils.normalize_to_range(float(robot_rotation[0]),-1,1,0,1))
+                observation.append(utils.normalize_to_range(float(robot_rotation[1]),-1,1,0,1))
+                observation.append(utils.normalize_to_range(float(robot_rotation[2]),-1,1,0,1))
+                observation.append(utils.normalize_to_range(float(robot_rotation[3]),-math.pi,math.pi,0,1))
+
+
+                self.final_distance[k] = utils.get_distance_from_target(self.robot_handles[k],self.final_target)
+                observation.append(utils.normalize_to_range(float(self.final_distance[k]),MAX_DISTANCE['min'],MAX_DISTANCE['max'],0,1))                
+
+                self.angles[k] = utils.get_angle_from_target(self.robot_handles[k],self.final_target)
+                observation.append(utils.normalize_to_range(float(self.angles[k]),MAX_ANGLE['min'],MAX_ANGLE['max'],0,1))
+
+
+            for m in range(self.robot_num,Max_robotnum):
+                for n in range(9):
+                    observation.append(0.5)
+            
+        else :
+            observation = [0 for i in range(OBSERVATION_SPACE)]
+        
+        self.observation = observation
+
+        return self.observation
+输入维度为(Max_robotnum-1) * 4 + 7 + 9 * Max_robotnum，输入的是距离，6个模块
