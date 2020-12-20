@@ -1,0 +1,256 @@
+#VRML_SIM R2020b utf8
+WorldInfo {
+  info [
+    "Simulation of the YAMOR modular robot."
+    "The YAMOR robot goes through a sequence of module deconnections and reconnections while demonstrating two different types of locomotion."
+    "Biorobotics Laboratory, EPFL, Lausanne"
+    ""
+    "Publication:"
+    "R. Moeckel, C. Jaquier, K. Drapel, E. Dittrich, A. Upegui, and A.J. Ijspeert."
+    "Exploring adaptive locomotion with YaMoR, a novel autonomous modular robot with Bluetooth interface."
+    "Industrial Robot, 33(4):285-290, 2006."
+  ]
+  title "Modular Robot"
+  basicTimeStep 8
+  coordinateSystem "NUE"
+  contactProperties [
+    ContactProperties {
+      coulombFriction [
+        0.5
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.45066072840562094 -0.768809789930176 -0.4536919822747962 1.837203373007121
+  position -0.70774328594073 1.2746628553789214 -0.11300727913194852
+  followSmoothness 0
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 100 100
+}
+Solid {
+  translation 1.27707 -3.41283e-13 4.16436
+  children [
+    Shape {
+      appearance DryMud {
+      }
+      geometry DEF slope ElevationGrid {
+        height [
+          0, 0, 0.3, 0.3, 0.6, 0.6
+        ]
+        xDimension 2
+        zDimension 3
+      }
+    }
+  ]
+  name "slope"
+  boundingObject USE slope
+}
+Solid {
+  translation 1.07937 0.05 1.19801
+  children [
+    DEF box Shape {
+      appearance RedBricks {
+      }
+      geometry Box {
+        size 0.3 0.1 0.1
+      }
+    }
+  ]
+  boundingObject USE box
+  physics Physics {
+  }
+}
+Robot {
+  translation -0.0126844 0.05 0.0250385
+  children [
+    DEF BODY Solid {
+      children [
+        DEF body Shape {
+          appearance DEF body PBRAppearance {
+            baseColor 1 1 0
+            roughness 0.5
+            metalness 0
+          }
+          geometry Box {
+            size 0.08 0.08 0.12
+          }
+        }
+        Transform {
+          translation 0 0 -0.06
+          rotation 0 0 1 1.57
+          children [
+            Shape {
+              appearance DEF body PBRAppearance {
+                baseColor 1 1 0
+                roughness 0.5
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.08
+                radius 0.04
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0 0 0.06
+          rotation 0 0 1 1.57
+          children [
+            Shape {
+              appearance DEF body PBRAppearance {
+                baseColor 1 1 0
+                roughness 0.5
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.08
+                radius 0.04
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0 0 -0.18
+          children [
+            Group {
+              children [
+                Shape {
+                  appearance DEF body PBRAppearance {
+                    baseColor 1 1 0
+                    roughness 0.5
+                    metalness 0
+                  }
+                  geometry Box {
+                    size 0.08 0.08 0.12
+                  }
+                }
+                Transform {
+                  translation 0 0 -0.06
+                  rotation 0 0 1 1.57
+                  children [
+                    Shape {
+                      appearance USE body
+                      geometry Cylinder {
+                        height 0.08
+                        radius 0.04
+                      }
+                    }
+                  ]
+                }
+                Transform {
+                  translation 0 0 0.06
+                  rotation 0 0 1 1.57
+                  children [
+                    Shape {
+                      appearance USE body
+                      geometry Cylinder {
+                        height 0.08
+                        radius 0.04
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        Transform {
+          translation 0 0 -0.36
+          children [
+            Group {
+              children [
+                Shape {
+                  appearance DEF body PBRAppearance {
+                    baseColor 1 1 0
+                    roughness 0.5
+                    metalness 0
+                  }
+                  geometry Box {
+                    size 0.08 0.08 0.12
+                  }
+                }
+                Transform {
+                  translation 0 0 -0.06
+                  rotation 0 0 1 1.57
+                  children [
+                    Shape {
+                      appearance USE body
+                      geometry Cylinder {
+                        height 0.08
+                        radius 0.04
+                      }
+                    }
+                  ]
+                }
+                Transform {
+                  translation 0 0 0.06
+                  rotation 0 0 1 1.57
+                  children [
+                    Shape {
+                      appearance USE body
+                      geometry Cylinder {
+                        height 0.08
+                        radius 0.04
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        Transform {
+          translation 0 0 -0.54
+          children [
+            Group {
+              children [
+                Shape {
+                  appearance DEF body PBRAppearance {
+                    baseColor 1 1 0
+                    roughness 0.5
+                    metalness 0
+                  }
+                  geometry Box {
+                    size 0.08 0.08 0.12
+                  }
+                }
+                Transform {
+                  translation 0 0 -0.06
+                  rotation 0 0 1 1.57
+                  children [
+                    Shape {
+                      appearance USE body
+                      geometry Cylinder {
+                        height 0.08
+                        radius 0.04
+                      }
+                    }
+                  ]
+                }
+                Transform {
+                  translation 0 0 0.06
+                  rotation 0 0 1 1.57
+                  children [
+                    Shape {
+                      appearance USE body
+                      geometry Cylinder {
+                        height 0.08
+                        radius 0.04
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

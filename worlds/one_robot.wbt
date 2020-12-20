@@ -1,0 +1,519 @@
+#VRML_SIM R2020b utf8
+WorldInfo {
+  info [
+    "Simulation of the YAMOR modular robot."
+    "The YAMOR robot goes through a sequence of module deconnections and reconnections while demonstrating two different types of locomotion."
+    "Biorobotics Laboratory, EPFL, Lausanne"
+    ""
+    "Publication:"
+    "R. Moeckel, C. Jaquier, K. Drapel, E. Dittrich, A. Upegui, and A.J. Ijspeert."
+    "Exploring adaptive locomotion with YaMoR, a novel autonomous modular robot with Bluetooth interface."
+    "Industrial Robot, 33(4):285-290, 2006."
+  ]
+  title "Modular Robot"
+  basicTimeStep 16
+  coordinateSystem "NUE"
+  contactProperties [
+    ContactProperties {
+      coulombFriction [
+        0.5
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.4238643203301539 -0.7817074694648093 -0.4574630806239786 1.8338568473851518
+  position -3.66245486569242 7.249570261162788 3.8727433661190753
+  followSmoothness 0
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 100 100
+  appearance Parquetry {
+    type "dark strip"
+  }
+}
+Solid {
+  translation 0.742375 0.25 2.49968
+  rotation -0.9178383048408658 0.2657201778025893 0.2948993612665281 2.609259292758719e-06
+  children [
+    DEF box Shape {
+      appearance RedBricks {
+      }
+      geometry Box {
+        size 0.3 0.5 0.3
+      }
+    }
+  ]
+  name "s1"
+  boundingObject USE box
+}
+Solid {
+  translation -0.209367 0.25 4.24176
+  rotation -0.9178383048408658 0.2657201778025893 0.2948993612665281 2.609259292758719e-06
+  children [
+    DEF box Shape {
+      appearance RedBricks {
+      }
+      geometry Box {
+        size 0.3 0.5 0.3
+      }
+    }
+  ]
+  name "s1(1)"
+  boundingObject USE box
+}
+Solid {
+  translation 0.377702 0.25 3.60167
+  rotation -0.9178383048408658 0.2657201778025893 0.2948993612665281 2.609259292758719e-06
+  children [
+    DEF box Shape {
+      appearance RedBricks {
+      }
+      geometry Box {
+        size 0.3 0.5 0.3
+      }
+    }
+  ]
+  name "s1(4)"
+  boundingObject USE box
+}
+Solid {
+  translation 1.40245 0.25 4.13591
+  rotation -0.9178383048408658 0.2657201778025893 0.2948993612665281 2.609259292758719e-06
+  children [
+    DEF box Shape {
+      appearance RedBricks {
+      }
+      geometry Box {
+        size 0.3 0.5 0.3
+      }
+    }
+  ]
+  name "s1(2)"
+  boundingObject USE box
+}
+Solid {
+  translation 0.114507 0.25 5.21811
+  rotation -0.9178383048408658 0.2657201778025893 0.2948993612665281 2.609259292758719e-06
+  children [
+    DEF box Shape {
+      appearance RedBricks {
+      }
+      geometry Box {
+        size 0.3 0.5 0.3
+      }
+    }
+  ]
+  name "s1(3)"
+  boundingObject USE box
+}
+DEF final_target Solid {
+  translation 0.774557 0.025 4.90303
+  children [
+    Shape {
+      appearance PBRAppearance {
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.05 0.05 0.05
+      }
+    }
+  ]
+  name "final_target"
+}
+Robot {
+  children [
+    Emitter {
+      channel 2
+    }
+    Receiver {
+      channel 1
+    }
+  ]
+  controller "supervisor_one"
+  supervisor TRUE
+}
+DEF robot_0 Robot {
+  translation 0 0.05 0.69
+  children [
+    DEF BODY Group {
+      children [
+        Transform {
+          translation 0 0 -0.06
+          rotation 0 0 1 1.57
+          children [
+            Shape {
+              appearance DEF body PBRAppearance {
+                baseColor 0 1 0
+                roughness 0.2
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.08
+                radius 0.04
+              }
+            }
+          ]
+        }
+        Shape {
+          appearance USE body
+          geometry Box {
+            size 0.08 0.08 0.12
+          }
+        }
+        Transform {
+          translation 0 0 0.06
+          rotation 0 0 1 1.5708
+          children [
+            Shape {
+              appearance USE body
+              geometry Cylinder {
+                height 0.08
+                radius 0.04
+              }
+            }
+          ]
+        }
+      ]
+    }
+    DEF left HingeJoint {
+      jointParameters HingeJointParameters {
+        position -2.0203828833937197e-18
+        anchor -0.05 0 0
+      }
+      device [
+        RotationalMotor {
+          name "left_motor"
+          maxVelocity 20
+          maxTorque 20
+        }
+      ]
+      endPoint Solid {
+        translation 0.05 0 0
+        rotation -1.0101877310633158e-18 1.0101914416968599e-18 1 1.5708
+        children [
+          Shape {
+            appearance DEF DYNAMIC PBRAppearance {
+              baseColor 0.753 0.753 0.753
+              roughness 0.2
+              metalness 0
+            }
+            geometry DEF WHEEL Cylinder {
+              height 0.02
+              radius 0.05
+            }
+          }
+        ]
+        name "left_wheel"
+        boundingObject USE WHEEL
+        physics Physics {
+          density -1
+          mass 0.08
+        }
+      }
+    }
+    DEF right HingeJoint {
+      jointParameters HingeJointParameters {
+        position -4.996592655321074e-18
+        anchor -0.05 0 0
+      }
+      device [
+        RotationalMotor {
+          name "right_motor"
+          maxVelocity 20
+          maxTorque 20
+        }
+      ]
+      endPoint Solid {
+        translation -0.05 0 0
+        rotation -2.498287163119391e-18 2.498296327660537e-18 0.9999999999999999 1.5707999951179268
+        children [
+          Shape {
+            appearance DEF DYNAMIC PBRAppearance {
+              baseColor 0.753 0.753 0.753
+              roughness 0.2
+              metalness 0
+            }
+            geometry DEF WHEEL Cylinder {
+              height 0.02
+              radius 0.05
+            }
+          }
+        ]
+        name "right_wheel"
+        boundingObject USE WHEEL
+        physics Physics {
+          density -1
+          mass 0.08
+        }
+      }
+    }
+    DEF front HingeJoint {
+      jointParameters HingeJointParameters {
+        position 4.677320343641237e-09
+        anchor 0 0 0.06
+      }
+      device [
+        RotationalMotor {
+          name "front_motor"
+          maxVelocity 20
+          maxTorque 20
+        }
+      ]
+      endPoint Solid {
+        translation 0 0 0.06
+        rotation 1 0 0 0
+        children [
+          DistanceSensor {
+            translation 0 0 0.055
+            rotation 0 1 0 -1.5708
+            children [
+              DEF DS Shape {
+                appearance PBRAppearance {
+                  baseColor 0.333333 0.666667 1
+                  roughness 1
+                  metalness 0
+                }
+                geometry Box {
+                  size 0.01 0.01 0.01
+                }
+              }
+            ]
+            name "ds0"
+            lookupTable [
+              0 0 0
+              0.3 1000 0
+            ]
+          }
+          DistanceSensor {
+            translation 0.03 0 0.055
+            rotation 0 1 0 -1.27
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.333333 0.666667 1
+                  roughness 1
+                  metalness 0
+                }
+                geometry Box {
+                  size 0.01 0.01 0.01
+                }
+              }
+            ]
+            name "ds1"
+            lookupTable [
+              0 0 0
+              0.3 1000 0
+            ]
+          }
+          DistanceSensor {
+            translation -0.03 0 0.055
+            rotation 0 1 0 -1.87
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.333333 0.666667 1
+                  roughness 1
+                  metalness 0
+                }
+                geometry Box {
+                  size 0.01 0.01 0.01
+                }
+              }
+            ]
+            name "ds2"
+            lookupTable [
+              0 0 0
+              0.3 1000 0
+            ]
+          }
+          DistanceSensor {
+            translation 0.05 0 0.02
+            children [
+              DEF DS Shape {
+                appearance PBRAppearance {
+                  baseColor 0.333333 0.666667 1
+                  roughness 1
+                  metalness 0
+                }
+                geometry Box {
+                  size 0.01 0.01 0.01
+                }
+              }
+            ]
+            name "ds3"
+            lookupTable [
+              0 0 0
+              0.3 1000 0
+            ]
+          }
+          DistanceSensor {
+            translation -0.05 0 0.02
+            rotation 0 1 0 3.14
+            children [
+              DEF DS Shape {
+                appearance PBRAppearance {
+                  baseColor 0.333333 0.666667 1
+                  roughness 1
+                  metalness 0
+                }
+                geometry Box {
+                  size 0.01 0.01 0.01
+                }
+              }
+            ]
+            name "ds4"
+            lookupTable [
+              0 0 0
+              0.3 1000 0
+            ]
+          }
+          DEF FRONTBAN Transform {
+            translation 0 0 0.024
+            children [
+              Shape {
+                appearance USE DYNAMIC
+                geometry DEF ban Box {
+                  size 0.1 0.02 0.062
+                }
+              }
+            ]
+          }
+        ]
+        name "front_ban"
+        boundingObject USE FRONTBAN
+        physics Physics {
+          density -1
+          mass 0.02
+        }
+      }
+    }
+    DEF rear HingeJoint {
+      jointParameters HingeJointParameters {
+        position -4.677320752932701e-09
+        anchor 0 0 -0.06
+      }
+      device [
+        RotationalMotor {
+          name "rear_motor"
+          maxVelocity 20
+          maxTorque 20
+        }
+        PositionSensor {
+        }
+      ]
+      endPoint Solid {
+        translation 0 0 -0.06
+        rotation 1 0 0 0
+        children [
+          DEF REARBAN Transform {
+            translation 0 0 -0.024
+            children [
+              DEF rearban Shape {
+                appearance USE DYNAMIC
+                geometry DEF ban Box {
+                  size 0.1 0.02 0.062
+                }
+              }
+            ]
+          }
+          Connector {
+            translation 0 0 -0.055
+            rotation 0 1 0 3.14
+            children [
+              Transform {
+                rotation 1 0 0 1.5708
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      metalness 0
+                    }
+                    geometry Cylinder {
+                      height 0.001
+                      radius 0.01
+                    }
+                  }
+                ]
+              }
+            ]
+            name "rear_connector"
+            isLocked TRUE
+            autoLock TRUE
+            distanceTolerance 0.05
+            axisTolerance 0.5
+            rotationTolerance 0.5
+          }
+          DistanceSensor {
+            translation 0.05 0 -0.03
+            rotation 0 1 0 0.7854
+            children [
+              DEF DS Shape {
+                appearance PBRAppearance {
+                  baseColor 0.333333 0.666667 1
+                  roughness 1
+                  metalness 0
+                }
+                geometry Box {
+                  size 0.01 0.01 0.01
+                }
+              }
+            ]
+            name "ds5"
+            lookupTable [
+              0 0 0
+              0.3 1000 0
+            ]
+          }
+          DistanceSensor {
+            translation -0.05 0 -0.03
+            rotation 0 1 0 2.356
+            children [
+              DEF DS Shape {
+                appearance PBRAppearance {
+                  baseColor 0.333333 0.666667 1
+                  roughness 1
+                  metalness 0
+                }
+                geometry Box {
+                  size 0.01 0.01 0.01
+                }
+              }
+            ]
+            name "ds6"
+            lookupTable [
+              0 0 0
+              0.3 1000 0
+            ]
+          }
+        ]
+        name "rear_ban"
+        boundingObject USE REARBAN
+        physics Physics {
+          density -1
+          mass 0.02
+        }
+      }
+    }
+    Emitter {
+      channel 1
+    }
+    Receiver {
+      channel 2
+    }
+  ]
+  name "0"
+  boundingObject USE BODY
+  physics Physics {
+    density -1
+    mass 0.5
+  }
+  controller "robot_one"
+  battery [
+    49995.316301917206, 50000
+  ]
+}

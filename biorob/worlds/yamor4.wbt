@@ -1,0 +1,369 @@
+#VRML_SIM R2020b utf8
+WorldInfo {
+  info [
+    "Simulation of the YAMOR modular robot."
+    "The YAMOR robot goes through a sequence of module deconnections and reconnections while demonstrating two different types of locomotion."
+    "Biorobotics Laboratory, EPFL, Lausanne"
+    ""
+    "Publication:"
+    "R. Moeckel, C. Jaquier, K. Drapel, E. Dittrich, A. Upegui, and A.J. Ijspeert."
+    "Exploring adaptive locomotion with YaMoR, a novel autonomous modular robot with Bluetooth interface."
+    "Industrial Robot, 33(4):285-290, 2006."
+  ]
+  title "Modular Robot"
+  basicTimeStep 8
+  coordinateSystem "NUE"
+  contactProperties [
+    ContactProperties {
+      coulombFriction [
+        0.5
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.682637201768976 -0.6492763572168183 -0.3353306766764426 4.985382267287104
+  position 4.679645088905409 2.00512475098497 4.06038699194316
+  follow "module_4"
+  followSmoothness 1
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 100 100
+}
+DEF MODULE_1 Yamor {
+  translation 0.682638 0.03 0.026539
+  rotation 0 0 1 1.5708
+  name "module_1"
+}
+DEF MODULE_2 Yamor {
+  translation 0.453635 0.03 0.236213
+  rotation 0 0 1 0
+  name "module_2"
+}
+DEF MODULE_3 Yamor {
+  translation 0.449577 0.03 0.397427
+  rotation 0 0 1 1.5708
+  name "module_3"
+}
+DEF MODULE_4 Yamor {
+  translation 0.438648 0.03 0.494163
+  rotation 0 0 1 1.5708
+  name "module_4"
+}
+DEF MODULE_5 Yamor {
+  translation 0.422839 0.03 0.701452
+  rotation 0 0 1 1.5708
+  name "module_5"
+}
+DEF MODULE_6 Yamor {
+  translation 0.429061 0.03 0.853363
+  rotation 0 0 1 1.5708
+  name "module_6"
+}
+DEF MODULE_7 Yamor {
+  translation 0.343113 0.03 0.825906
+  rotation 0 0 1 1.5708
+  name "module_7"
+}
+DEF MODULE_8 Yamor {
+  translation 0.311172 0.03 1.03207
+  rotation 0 0 1 1.5708
+  name "module_8"
+}
+Yamor {
+  translation 0.584967 0.1 0.210302
+}
+DEF Salamanderhead Robot {
+  translation 3.4 0.294 3.15
+  rotation 0 1 0 1.57
+  children [
+    Group {
+      children [
+        Slot {
+        }
+      ]
+    }
+    GPS {
+    }
+    DEF SMALL_SEGMET Group {
+      children [
+        Transform {
+          children [
+            Shape {
+              appearance DEF SALAMANDER_COLOR PBRAppearance {
+                baseColor 1 0.8 0.3
+                roughness 0.3
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.0561
+                radius 0.019
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0 0 0.038
+          children [
+            Shape {
+              appearance USE SALAMANDER_COLOR
+              geometry Box {
+                size 0.038 0.056 0.076
+              }
+            }
+          ]
+        }
+      ]
+    }
+    DEF LEFT_EYE DistanceSensor {
+      translation -0.02 0.03 0
+      rotation 0 1 0 2.356
+      children [
+        DEF EYE_SHAPE Shape {
+          appearance DEF EYE_APPEARANCE PBRAppearance {
+            baseColor 0.2 0.2 0.2
+            roughness 0.2
+            metalness 0
+          }
+          geometry Sphere {
+            radius 0.005
+            subdivision 2
+          }
+        }
+      ]
+      name "ds_left"
+      lookupTable [
+        0 0 0
+        0.7 0.7 0
+      ]
+      numberOfRays 6
+      aperture 0.8
+    }
+    DEF RIGHT_EYE DistanceSensor {
+      translation 0.02 0.03 0
+      rotation 0 1 0 0.785
+      children [
+        USE EYE_SHAPE
+      ]
+      name "ds_right"
+      lookupTable [
+        0 0 0
+        0.7 0.7 0
+      ]
+      numberOfRays 6
+      aperture 0.8
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0 0 0.108
+        minStop -0.0001
+        maxStop 0.0001
+      }
+      endPoint DEF SOLID_THORAX Solid {
+        translation 0 0 0.108
+        children [
+          DEF BIG_SEGMENT Group {
+            children [
+              Transform {
+                children [
+                  Shape {
+                    appearance USE SALAMANDER_COLOR
+                    geometry Cylinder {
+                      height 0.0561
+                      radius 0.032
+                    }
+                  }
+                ]
+              }
+              Transform {
+                translation 0 0 0.0235
+                children [
+                  Shape {
+                    appearance USE SALAMANDER_COLOR
+                    geometry Box {
+                      size 0.064 0.056 0.047
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+          DEF HINGE_JOINT_LEG_1 HingeJoint {
+            jointParameters HingeJointParameters {
+              anchor -0.032 0 0.02
+            }
+            device [
+              RotationalMotor {
+                name "motor_leg_1"
+                maxVelocity 20
+                maxTorque 100
+              }
+            ]
+            endPoint DEF SOLID_LEG_1 Solid {
+              translation -0.032 0 0.02
+              rotation 1 0 0 0
+              children [
+                DEF GROUP_FEMUR_1 Group {
+                  children [
+                    DEF TRANSFORM_HIP_1 Transform {
+                      translation -0.004 0 0
+                      rotation 0 0 1 1.5708
+                      children [
+                        DEF SHAPE_HIP Shape {
+                          appearance DEF LEG_COLOR PBRAppearance {
+                            baseColor 0.2 0.2 0.2
+                            roughness 0.2
+                            metalness 0
+                          }
+                          geometry Cylinder {
+                            height 0.008
+                            radius 0.00975
+                          }
+                        }
+                      ]
+                    }
+                    DEF TRANSFORM_FEMUR_1 Transform {
+                      translation -0.016 0 0
+                      rotation 0 0 1 1.5708
+                      children [
+                        DEF FEMUR Shape {
+                          appearance USE LEG_COLOR
+                          geometry Capsule {
+                            height 0.016
+                            radius 0.00575
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+                DEF JOINT_TIBIA_1 Solid {
+                  translation -0.024 0 0
+                  rotation 0 0 1 1.0472
+                  children [
+                    DEF GROUP_TIBIA_1 Group {
+                      children [
+                        DEF TRANSFORM_TIBIA_1 Transform {
+                          translation -0.0225 0 0
+                          rotation 0 0 1 1.5708
+                          children [
+                            DEF TIBIA Shape {
+                              appearance USE LEG_COLOR
+                              geometry Capsule {
+                                height 0.042
+                                radius 0.00575
+                              }
+                            }
+                          ]
+                        }
+                        DEF TRANSFORM_FOOT_1 Transform {
+                          translation -0.045 -0.002 -0.0055
+                          rotation 0 0 1 -1.0472
+                          children [
+                            DEF FOOT Shape {
+                              appearance USE LEG_COLOR
+                              geometry Cylinder {
+                                height 0.0075
+                                radius 0.013
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                  contactMaterial "leg"
+                  immersionProperties [
+                    ImmersionProperties {
+                      fluidName "fluid"
+                      dragForceCoefficients 0.95 0.15 0.15
+                    }
+                  ]
+                  boundingObject USE GROUP_TIBIA_1
+                  physics Physics {
+                    density -1
+                    mass 0.0045704
+                    centerOfMass [
+                      -0.03 0 0
+                    ]
+                    inertiaMatrix [
+                      2.59057e-07 1.32103e-06 1.25007e-06
+                      -2.73481e-08 -1.64256e-07 -2.19008e-08
+                    ]
+                  }
+                }
+              ]
+              name "leg 1"
+              contactMaterial "body"
+              immersionProperties [
+                DEF IMMERSION_PROP_FEMUR ImmersionProperties {
+                  fluidName "fluid"
+                  dragForceCoefficients 0 0.15 0.15
+                }
+              ]
+              boundingObject USE GROUP_FEMUR_1
+              physics Physics {
+                density -1
+                mass 0.00242371
+                centerOfMass [
+                  -0.012 0 0
+                ]
+                inertiaMatrix [
+                  7.57828e-08 1.99961e-07 1.99961e-07
+                  -1.03066e-13 0 0
+                ]
+              }
+            }
+          }
+          DEF HINGE_JOINT_LEG_2 HingeJoint {
+          }
+          HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 1 0
+              anchor 0 0 0.066
+            }
+            device [
+              RotationalMotor {
+                name "motor_1"
+                minPosition -1.13446
+                maxPosition 1.13446
+                maxTorque 100
+              }
+            ]
+            endPoint DEF SEGMENT_1 Solid {
+              translation 0 0 0.066
+              children [
+                USE SMALL_SEGMET
+                HingeJoint {
+                  jointParameters HingeJointParameters {
+                    axis 0 1 0
+                    anchor 0 0 0.095
+                  }
+                  device [
+                    RotationalMotor {
+                      name "motor_2"
+                      minPosition -1.13446
+                      maxPosition 1.13446
+                      maxTorque 100
+                    }
+                  ]
+                  endPoint DEF SEGMENT_2 Solid {
+                    translation 0 0 0.095
+                    children [
+                      USE SMALL_SEGMET
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

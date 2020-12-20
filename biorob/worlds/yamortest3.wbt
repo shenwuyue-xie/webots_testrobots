@@ -1,0 +1,115 @@
+#VRML_SIM R2020b utf8
+WorldInfo {
+  info [
+    "Simulation of the YAMOR modular robot."
+    "The YAMOR robot goes through a sequence of module deconnections and reconnections while demonstrating two different types of locomotion."
+    "Biorobotics Laboratory, EPFL, Lausanne"
+    ""
+    "Publication:"
+    "R. Moeckel, C. Jaquier, K. Drapel, E. Dittrich, A. Upegui, and A.J. Ijspeert."
+    "Exploring adaptive locomotion with YaMoR, a novel autonomous modular robot with Bluetooth interface."
+    "Industrial Robot, 33(4):285-290, 2006."
+  ]
+  title "Modular Robot"
+  basicTimeStep 8
+  coordinateSystem "NUE"
+  contactProperties [
+    ContactProperties {
+      coulombFriction [
+        0.5
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.29660056150604164 0.9302619584892607 0.21596480153493955 4.958709498413771
+  position -4.314038202505878 2.962358213389052 0.32698803429746465
+  follow "module_4"
+  followSmoothness 1
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 100 100
+}
+DEF MODULE_1 Yamor {
+  translation 0 0.03 0
+  rotation 0 0 1 1.5708
+  name "module_1"
+  controller "yamorontest"
+}
+DEF MODULE_2 Yamor {
+  translation 0 0.03 0.097
+  rotation 0 0 1 1.5708
+  name "module_2"
+  controller "yamorontest"
+}
+DEF MODULE_3 Yamor {
+  translation 0 0.03 0.194
+  rotation 0 0 1 1.5708
+  name "module_3"
+  controller "yamorontest"
+}
+DEF MODULE_4 Yamor {
+  translation 0 0.03 0.291
+  rotation 0 0 1 1.5708
+  name "module_4"
+  controller "yamorontest"
+}
+DEF MODULE_5 Yamor {
+  translation 0 0.03 0.388
+  rotation 0 0 1 1.5708
+  name "module_5"
+  controller "yamorontest"
+}
+DEF MODULE_6 Yamor {
+  translation 0 0.03 0.485
+  rotation 0 0 1 1.5708
+  name "module_6"
+  controller "yamorontest"
+}
+DEF MODULE_7 Yamor {
+  translation 0 0.03 0.582
+  rotation 0 0 1 1.5708
+  name "module_7"
+  controller "yamorontest"
+}
+DEF MODULE_8 Yamor {
+  translation 0 0.03 0.679
+  rotation 0 0 1 1.5708
+  name "module_8"
+  controller "yamorontest"
+}
+Solid {
+  translation -0.538329 2.73115e-14 -3.42908
+  children [
+    Shape {
+      appearance DryMud {
+      }
+      geometry DEF slope ElevationGrid {
+        height [
+          0.6, 0.6, 0.3, 0.3
+        ]
+        xDimension 2
+        zDimension 3
+      }
+    }
+  ]
+  boundingObject USE slope
+}
+Solid {
+  translation -0.00872526 -3.99681e-15 -0.770575
+  children [
+    DEF box Shape {
+      appearance RedBricks {
+      }
+      geometry Box {
+        size 0.3 0.1 0.1
+      }
+    }
+  ]
+  name "solid(1)"
+  boundingObject USE box
+}
